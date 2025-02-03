@@ -1,0 +1,510 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: N27;
+    src: url(font/N27-Regular.otf);
+}
+
+body{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #171717;
+}
+
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: -2em;
+}
+.mainTitle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.mainTitle span{
+    color: white;
+    font-weight: bold;
+    font-family: N27;
+    margin-top: -0.5em;
+    margin-bottom: 3em;
+    letter-spacing: 1em;
+}
+.bottomText{
+    margin-top: 2em;
+    color: white;
+    font-weight: bold;
+    font-family: N27;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.keyWrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 0.5em;
+    margin-top: 1em;
+}
+.leftArrowSVGSpan, .rightArrowSVGSpan, .enterKey{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em;
+    flex-direction: row;
+    width: max-content;
+    background-color: #202020;
+    border-bottom: 3px solid #252525;
+    border-radius: 3px;
+}
+.enterKey{
+    font-size: 0.9em;
+}
+.rightArrowSVGSpan{
+    transform: rotateY(180deg);
+}
+.leftArrowSVG, .rightArrowSVG{
+    width: 15px;
+    height: 15px;
+    fill: white;
+}
+
+.open, .yesCheck{
+    z-index: 5;
+}
+.open:checked ~ .overlay{
+    display: block;
+}
+.open:checked ~ .menu{
+    display: block;
+}
+.open:checked ~ .corner1, .open:checked ~ .corner3{
+    animation: 0.35s openCorner13 linear forwards;
+}
+.open:checked ~ .corner2, .open:checked ~ .corner4{
+    animation: 0.35s openCorner24 linear forwards;
+}
+.open:checked ~ .menu .middleDiv{
+    animation: 0.15s openMiddleMenu linear forwards;
+}
+
+.overlay{
+    position: absolute;
+    width: 100%;
+    height: 100dvh;
+    background-color: rgb(0, 0, 0, 0.5);
+    z-index: 2;
+    display: none;
+}
+
+.menu, .menuOpenBtns{
+    position: fixed;
+    width: 50em;
+    display: none;
+    height: max-content;
+    background-color: #020203;
+    outline: 5px solid #4B4B47;
+    border: 1px solid black;
+    z-index: 3;
+}
+
+.menuOpenBtns{
+    position: relative;
+    width: 18.5em;
+    display: block;
+}
+.selectionBtns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    margin: 1em;
+    padding: 1em;
+}
+.selectionBtns .open{
+    text-align: center;
+    font-weight: bold;
+    font-family: N27;
+}
+.open{
+    position: relative;
+}
+
+.corner1, .corner2, .corner3, .corner4{
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    background-color: transparent;
+    margin: -1em;
+    transform: rotateY(180deg);
+}
+.corner1{
+    top: 0;
+    left: 50%;
+    border-top: 2px solid #FEFEFF;
+    border-left: 2px solid #FEFEFF;
+    animation: 0.35s openCorner13 ease forwards;
+}
+.corner2{
+    top: 0;
+    right: 50%;
+    border-top: 2px solid #FEFEFF;
+    border-right: 2px solid #FEFEFF;
+    animation: 0.35s openCorner24 ease forwards;
+}
+.corner3{
+    bottom: 0;
+    left: 50%;
+    border-bottom: 2px solid #FEFEFF;
+    border-left: 2px solid #FEFEFF;
+    animation: 0.35s openCorner13 ease forwards;
+}
+.corner4{
+    bottom: 0;
+    right: 50%;
+    border-bottom: 2px solid #FEFEFF;
+    border-right: 2px solid #FEFEFF;
+    animation: 0.35s openCorner24 ease forwards;
+}
+
+
+.topHeadingDiv{
+    width: 100%;
+    height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: white;
+    font-family: N27;
+    font-weight: bold;
+    font-size: 2em;
+    background: repeating-linear-gradient(135deg, #222221, #222221 10px, transparent 10px, transparent 20px);
+    border-bottom: 5px solid #222221;
+}
+.middleDiv{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    color: white;
+    background-color: transparent;
+    font-family: N27;
+    font-weight: bold;
+    font-size: 1.5em;
+    position: relative;
+    width: 100%;
+    height: 7em;
+}
+.middleDiv::after{
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: repeating-linear-gradient(135deg, #222221, #222221 10px, transparent 10px, transparent 20px);
+    opacity: 0.15;
+}
+.bottomDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 6em;
+    gap: 1em;
+    background: repeating-linear-gradient(135deg, #222221, #222221 10px, transparent 10px, transparent 20px);
+    border-top: 5px solid #222221;
+}
+.bottomDiv .buttons{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    width: 100%;
+    height: 4em;
+    background-color: rgb(0, 0, 0, 0.7);
+}
+.yes, .no{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12em;
+    height: 2.5em;
+    margin: 0 1em 0 0;
+    background-color: #272727;
+    color: white;
+    font-family: N27;
+    font-weight: bold;
+    font-size: 1.25em;
+}
+.yes:hover, .no:hover, .yes:focus, .no:focus{
+    color: #A37434;
+}
+.yes:hover span, .no:hover span, .yes:focus span, .no:focus span{
+    animation: hoverText 1s ease-in-out infinite;
+}
+@keyframes hoverText {
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.yes:hover .cornerBtn11, .yes:hover .cornerBtn12, .yes:hover .cornerBtn13, .yes:hover .cornerBtn14,
+.yes:focus .cornerBtn11, .yes:focus .cornerBtn12, .yes:focus .cornerBtn13, .yes:focus .cornerBtn14{
+    opacity: 1;
+}
+.no:hover .cornerBtn21, .no:hover .cornerBtn22, .no:hover .cornerBtn23, .no:hover .cornerBtn24,
+.no:focus .cornerBtn21, .no:focus .cornerBtn22, .no:focus .cornerBtn23, .no:focus .cornerBtn24{
+    opacity: 1;
+}
+
+.cornerBtn11, .cornerBtn12, .cornerBtn13, .cornerBtn14, .cornerBtn21, .cornerBtn22, .cornerBtn23, .cornerBtn24, .cornerCBtn1, .cornerCBtn2, .cornerCBtn3, .cornerCBtn4{
+    position: absolute;
+    width: 0.75em;
+    height: 0.75em;
+    background-color: transparent;
+    margin: -0.45em;
+    opacity: 0;
+}
+.cornerCBtn1, .cornerCBtn2, .cornerCBtn3, .cornerCBtn4{
+    margin: -1em;
+}
+.cornerBtn11, .cornerBtn21{
+    top: 0;
+    left: 0;
+    border-top: 2px solid #A37434;
+    border-left: 2px solid #A37434;
+}
+.cornerBtn12, .cornerBtn22{
+    top: 0;
+    right: 0;
+    border-top: 2px solid #A37434;
+    border-right: 2px solid #A37434;
+}
+.cornerBtn13, .cornerBtn23{
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid #A37434;
+    border-left: 2px solid #A37434;
+}
+.cornerBtn14, .cornerBtn24{
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #A37434;
+    border-right: 2px solid #A37434;
+}
+.cornerCBtn1{
+    top: 0;
+    left: 0;
+    border-top: 2px solid #EBD518;
+    border-left: 2px solid #EBD518;
+}
+.cornerCBtn2{
+    top: 0;
+    right: 0;
+    border-top: 2px solid #EBD518;
+    border-right: 2px solid #EBD518;
+}
+.cornerCBtn3{
+    bottom: 0;
+    left: 0;
+    border-bottom: 2px solid #EBD518;
+    border-left: 2px solid #EBD518;
+}
+.cornerCBtn4{
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #EBD518;
+    border-right: 2px solid #EBD518;
+}
+
+.clickSVG{
+    fill: white;
+    width: 50px;
+    height: 50px;
+}
+
+label:focus{
+    outline: none;
+}
+.open:hover .clickSVG, .open:focus .clickSVG{
+    fill: #EBD518;
+}
+.open:hover .cornerCBtn1, .open:hover .cornerCBtn2, .open:hover .cornerCBtn3, .open:hover .cornerCBtn4, .open:focus .cornerCBtn1, .open:focus .cornerCBtn2, .open:focus .cornerCBtn3, .open:focus .cornerCBtn4{
+    opacity: 1;
+}
+.open:hover span{
+    display: inline-block;
+    animation: openSpanHover 0.75s ease infinite;
+}
+@keyframes openSpanHover {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(0.9);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
+
+
+@keyframes openCorner13 {
+    100%{
+        left: 0;
+        transform: rotateY(0deg);
+    }
+}
+@keyframes openCorner24 {
+    100%{
+        right: 0;
+        transform: rotateY(0deg);
+    }
+}
+@keyframes closeCorner13 {
+    0%{
+        left: 0;
+        transform: rotateY(0deg);
+    }
+    99%{
+        left: 50%;
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(180deg);
+    }
+}
+@keyframes closeCorner24 {
+    0%{
+        right: 0;
+        transform: rotateY(0deg);
+    }
+    99%{
+        right: 50%;
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(180deg);
+    }
+}
+@keyframes openMiddleMenu {
+    0%{
+        background-color: transparent;
+    }
+    50%{
+        background-color: grey;
+    }
+    100%{
+        background-color: transparent;
+    }
+}
+@keyframes closeMiddleMenu {
+    0%{
+        background-color: transparent;
+    }
+    25%{
+        background-color: grey;
+    }
+    50%{
+        background-color: transparent;
+    }
+    75%{
+        background-color: grey;
+    }
+    100%{
+        background-color: transparent;
+    }
+}
+
+@keyframes menuOpen {
+    0%{
+        display: none;
+    }
+    100%{
+        display: block;
+    }
+}
+@keyframes overlayOpen {
+    0%{
+        display: none;
+    }
+    100%{
+        display: block;
+    }
+}
+@keyframes overlayClose {
+    100%{
+        display: none;
+    }
+}
+@keyframes menuClose {
+    0%{
+        display: block;
+    }
+    25%{
+        display: none;
+    }
+    50%{
+        display: block;
+    }
+    75%{
+        display: none;
+    }
+    100%{
+        display: none;
+    }
+}
+
+.yesCheck, .noCheck{
+    display: none;
+}
+.yesCheck:checked ~ .menu .bottomDiv .buttons .no{
+    opacity: 0;
+}
+.noCheck:checked ~ .menu .bottomDiv .buttons .yes{
+    opacity: 0;
+}
+
+.yesCheck:checked ~ .menu .bottomDiv .buttons .yes{
+    background-color: rgb(163, 116, 52, 0.25);
+    color: rgb(163, 116, 52, 1);
+}
+.noCheck:checked ~ .menu .bottomDiv .buttons .no{
+    background-color: rgb(163, 116, 52, 0.25);
+    color: rgb(163, 116, 52, 1);
+}
+
+.yesCheck:checked ~ .menu .middleDiv, .noCheck:checked ~ .menu .middleDiv{
+    animation: 0.15s closeMiddleMenu linear forwards;
+}
+.yesCheck:checked ~ .menu .corner1, .yesCheck:checked ~ .menu .corner3, .noCheck:checked ~ .menu .corner1, .noCheck:checked ~ .menu .corner3{
+    animation: 0.15s closeCorner13 linear forwards;
+}
+.yesCheck:checked ~ .menu .corner2, .yesCheck:checked ~ .menu .corner4, .noCheck:checked ~ .menu .corner2, .noCheck:checked ~ .menu .corner4{
+    animation: 0.15s closeCorner24 linear forwards;
+}
+.yesCheck:checked ~ .menu, .noCheck:checked ~ .menu{
+    animation: 0.27s menuClose linear forwards;
+}
+.yesCheck:checked ~ .overlay, .noCheck:checked ~ .overlay{
+    animation: 0.27s overlayClose linear forwards;
+}
