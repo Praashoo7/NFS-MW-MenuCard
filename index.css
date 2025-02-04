@@ -26,6 +26,7 @@ body{
     flex-direction: column;
     gap: 1em;
     margin-top: -2em;
+    user-select: none;
 }
 .mainTitle{
     display: flex;
@@ -39,6 +40,7 @@ body{
     font-family: N27;
     margin-top: -0.5em;
     margin-bottom: 3em;
+    margin-left: 0.8em;
     letter-spacing: 1em;
 }
 .bottomText{
@@ -347,7 +349,21 @@ label:focus{
 }
 .open:hover .clickSVG, .open:focus .clickSVG{
     fill: #EBD518;
+    animation: svgHover 0.5s ease-in-out infinite;
 }
+@keyframes svgHover {
+    0%{
+        scale: 1;
+    }
+    50%{
+        scale: 0.95;
+    }
+    100%{
+        scale: 1;
+    }
+}
+
+
 .open:hover .cornerCBtn1, .open:hover .cornerCBtn2, .open:hover .cornerCBtn3, .open:hover .cornerCBtn4, .open:focus .cornerCBtn1, .open:focus .cornerCBtn2, .open:focus .cornerCBtn3, .open:focus .cornerCBtn4{
     opacity: 1;
 }
