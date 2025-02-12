@@ -526,3 +526,37 @@ label:focus{
 .yesCheck:checked ~ .overlay, .noCheck:checked ~ .overlay{
     animation: 0.27s overlayClose linear forwards;
 }
+
+.gitStar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5em 0.75em 0.5em 0.75em;
+    margin-top: 1em;
+    gap: 0.35em;
+    width: max-content;
+    background-color: #202020;
+    border-bottom: 3px solid #252525;
+    border-radius: 3px;
+    z-index: 5;
+    transition: 0.2s all ease-in-out;
+}
+.gitStar:hover{
+    color: rgb(235, 213, 24, 1);
+    cursor: pointer;
+    border-bottom: 3px solid rgb(235, 213, 24, 1);
+}
+.gitStar:active{
+    opacity: 0.65;
+}
+.gitStar:hover svg path{
+    stroke: rgb(235, 213, 24, 1);
+}
+.gitStar svg{
+    width: 22px;
+    height: 22px;
+}
+.gitStar svg path{
+    stroke: white;
+    transition: 0.2s all ease-in-out;
+}
