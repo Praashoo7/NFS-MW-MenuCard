@@ -17,6 +17,7 @@ body{
     justify-content: center;
     overflow: hidden;
     background-color: #171717;
+    transition: none !important;
 }
 
 .main{
@@ -85,51 +86,40 @@ body{
     fill: white;
 }
 
-.open, .yesCheck{
-    z-index: 5;
-}
-.open:checked ~ .overlay{
-    display: block;
-}
-.open:checked ~ .menu{
-    display: block;
-}
-.open:checked ~ .corner1, .open:checked ~ .corner3{
-    animation: 0.35s openCorner13 linear forwards;
-}
-.open:checked ~ .corner2, .open:checked ~ .corner4{
-    animation: 0.35s openCorner24 linear forwards;
-}
-.open:checked ~ .menu .middleDiv{
-    animation: 0.15s openMiddleMenu linear forwards;
-}
-
 .overlay{
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     bottom: 0;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: rgb(0, 0, 0, 0.75);
     z-index: 2;
     display: none;
 }
 
-.menu, .menuOpenBtns{
+.menuWrapper{
     position: fixed;
     width: 50em;
     display: none;
     height: max-content;
+    z-index: 3;
+}
+.menuWrapper .menu, .menuOpenBtns{
+    position: relative;
+    width: 50em;
     background-color: #020203;
     outline: 5px solid #4B4B47;
     border: 1px solid black;
     z-index: 3;
+    transition: none !important;
 }
 
 .menuOpenBtns{
     position: relative;
     width: 18.5em;
     display: block;
+    z-index: 1;
+    opacity: 1;
 }
 .selectionBtns{
     display: flex;
@@ -155,34 +145,39 @@ body{
     background-color: transparent;
     margin: -1em;
     transform: rotateY(180deg);
+    z-index: 4;
 }
 .corner1{
-    top: 0;
+    top: 50%;
     left: 50%;
     border-top: 2px solid #FEFEFF;
     border-left: 2px solid #FEFEFF;
-    animation: 0.35s openCorner13 ease forwards;
+    transform: rotateZ(180deg);
+    animation: 0.35s openCorner1 ease forwards;
 }
 .corner2{
-    top: 0;
+    top: 50%;
     right: 50%;
     border-top: 2px solid #FEFEFF;
     border-right: 2px solid #FEFEFF;
-    animation: 0.35s openCorner24 ease forwards;
+    transform: rotateZ(180deg);
+    animation: 0.35s openCorner2 ease forwards;
 }
 .corner3{
-    bottom: 0;
+    bottom: 50%;
     left: 50%;
     border-bottom: 2px solid #FEFEFF;
     border-left: 2px solid #FEFEFF;
-    animation: 0.35s openCorner13 ease forwards;
+    transform: rotateZ(180deg);
+    animation: 0.35s openCorner3 ease forwards;
 }
 .corner4{
-    bottom: 0;
+    bottom: 50%;
     right: 50%;
     border-bottom: 2px solid #FEFEFF;
     border-right: 2px solid #FEFEFF;
-    animation: 0.35s openCorner24 ease forwards;
+    transform: rotateZ(180deg);
+    animation: 0.35s openCorner4 ease forwards;
 }
 
 
@@ -269,6 +264,34 @@ body{
     100%{
         opacity: 1;
     }
+}
+
+.open, .yesCheck{
+    z-index: 5;
+}
+.open:checked ~ .overlay{
+    display: block;
+}
+.open:checked ~ .corner1{
+    animation: 0.35s openCorner1 linear forwards;
+}
+.open:checked ~ .corner2{
+    animation: 0.35s openCorner2 linear forwards;
+}
+.open:checked ~ .corner3{
+    animation: 0.35s openCorner3 linear forwards;
+}
+.open:checked ~ .corner4{
+    animation: 0.35s openCorner4 linear forwards;
+}
+.open:checked ~ .menuWrapper{
+    display: block;
+}
+.open:checked ~ .menuWrapper .menu{
+    animation: 0.45s menuOpen linear forwards;
+}
+.open:checked ~ .menuWrapper .menu .middleDiv{
+    animation: 0.22s openMiddleMenu 0.11s linear forwards;
 }
 
 .yes:hover .cornerBtn11, .yes:hover .cornerBtn12, .yes:hover .cornerBtn13, .yes:hover .cornerBtn14,
@@ -386,49 +409,229 @@ label:focus{
 }
 
 
-@keyframes openCorner13 {
-    100%{
-        left: 0;
-        transform: rotateY(0deg);
+@keyframes openCorner1 {
+    20%{
+        transform: rotateY(180deg) rotateZ(0);
     }
-}
-@keyframes openCorner24 {
-    100%{
-        right: 0;
-        transform: rotateY(0deg);
-    }
-}
-@keyframes closeCorner13 {
-    0%{
-        left: 0;
-        transform: rotateY(0deg);
-    }
-    99%{
+    50%{
+        top: 0;
         left: 50%;
+    }
+    51%{
         transform: rotateY(0deg);
     }
     100%{
-        transform: rotateY(180deg);
+        top: 0;
+        left: 0;
+        transform: rotateY(0deg);
     }
 }
-@keyframes closeCorner24 {
-    0%{
+@keyframes openCorner2 {
+    20%{
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50%{
+        top: 0;
+        right: 50%;
+    }
+    51%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        top: 0;
         right: 0;
         transform: rotateY(0deg);
     }
-    99%{
-        right: 50%;
+}
+@keyframes openCorner3 {
+    20%{
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50%{
+        bottom: 0;
+        left: 50%;
+    }
+    51%{
         transform: rotateY(0deg);
     }
     100%{
-        transform: rotateY(180deg);
+        bottom: 0;
+        left: 0;
+        transform: rotateY(0deg);
+    }
+}
+@keyframes openCorner4 {
+    20%{
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50%{
+        bottom: 0;
+        right: 50%;
+    }
+    51%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        bottom: 0;
+        right: 0;
+        transform: rotateY(0deg);
+    }
+}
+@keyframes closeCorner1 {
+    0%{
+        top: 0;
+        left: 0;
+        transform: rotateY(0deg) rotateZ(0);
+    }
+    50%{
+        top: 0;
+        left: 50%;
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    88.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    89%{
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    89.5%{
+        
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    90%{
+        left: 50%;
+        top: 50%;
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    95%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+    100%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+}
+@keyframes closeCorner2 {
+    0%{
+        top: 0;
+        right: 0;
+        transform: rotateY(0deg) rotateZ(0);
+    }
+    50%{
+        top: 0;
+        right: 50%;
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    88.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    89%{
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    89.5%{
+        
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    90%{
+        right: 50%;
+        top: 50%;
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    95%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+    100%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+}
+@keyframes closeCorner3 {
+    0%{
+        bottom: 0;
+        left: 0;
+        transform: rotateY(0deg) rotateZ(0);
+    }
+    50%{
+        bottom: 0;
+        left: 50%;
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    88.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    89%{
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    89.5%{
+        
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    90%{
+        left: 50%;
+        bottom: 50%;
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    95%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+    100%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+}
+@keyframes closeCorner4 {
+    0%{
+        bottom: 0;
+        right: 0;
+        transform: rotateY(0deg) rotateZ(0);
+    }
+    50%{
+        bottom: 0;
+        right: 50%;
+        transform: rotateY(180deg) rotateZ(0);
+    }
+    50.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    88.5%{
+        transform: rotateY(180deg) rotateZ(0deg);
+    }
+    89%{
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    89.5%{
+        
+        transform: rotateY(180deg) rotateZ(180deg);
+    }
+    90%{
+        right: 50%;
+        bottom: 50%;
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+    95%{
+        transform: rotateY(0deg) rotateZ(180deg);
+    }
+    100%{
+        transform: rotateY(0deg) rotateZ(180deg);
     }
 }
 @keyframes openMiddleMenu {
     0%{
         background-color: transparent;
     }
+    25%{
+        background-color: grey;
+    }
     50%{
+        background-color: transparent;
+    }
+    75%{
         background-color: grey;
     }
     100%{
@@ -455,9 +658,19 @@ label:focus{
 
 @keyframes menuOpen {
     0%{
-        display: none;
+        opacity: 0;
+        display: block;
+    }
+    49.5%{
+        opacity: 0;
+        display: block;
+    }
+    50%{
+        opacity: 1;
+        display: block;
     }
     100%{
+        opacity: 1;
         display: block;
     }
 }
@@ -470,24 +683,47 @@ label:focus{
     }
 }
 @keyframes overlayClose {
+    0%{
+        display: block;
+    }
+    100%{
+        display: none;
+    }
+}
+@keyframes menuWrapperClose {
+    0%{
+        display: block;
+    }
+    99%{
+        display: block;
+    }
     100%{
         display: none;
     }
 }
 @keyframes menuClose {
     0%{
+        opacity: 1;
         display: block;
     }
     25%{
-        display: none;
+        opacity: 0;
+        display: block;
+    }
+    40%{
+        opacity: 0;
+        display: block;
     }
     50%{
+        opacity: 0;
         display: block;
     }
     75%{
+        opacity: 0;
         display: none;
     }
     100%{
+        opacity: 0;
         display: none;
     }
 }
@@ -495,36 +731,47 @@ label:focus{
 .yesCheck, .noCheck{
     display: none;
 }
-.yesCheck:checked ~ .menu .bottomDiv .buttons .no{
+.yesCheck:checked ~ .menuWrapper .menu .bottomDiv .buttons .no{
     opacity: 0;
 }
-.noCheck:checked ~ .menu .bottomDiv .buttons .yes{
+.noCheck:checked ~ .menuWrapper .menu .bottomDiv .buttons .yes{
     opacity: 0;
 }
 
-.yesCheck:checked ~ .menu .bottomDiv .buttons .yes{
+.yesCheck:checked ~ .menuWrapper .menu .bottomDiv .buttons .yes{
     background-color: rgb(163, 116, 52, 0.25);
     color: rgb(163, 116, 52, 1);
 }
-.noCheck:checked ~ .menu .bottomDiv .buttons .no{
+.noCheck:checked ~ .menuWrapper .menu .bottomDiv .buttons .no{
     background-color: rgb(163, 116, 52, 0.25);
     color: rgb(163, 116, 52, 1);
 }
 
-.yesCheck:checked ~ .menu .middleDiv, .noCheck:checked ~ .menu .middleDiv{
-    animation: 0.15s closeMiddleMenu linear forwards;
+.yesCheck:checked ~ .menuWrapper .menu .middleDiv, .noCheck:checked ~ .menuWrapper .menu .middleDiv{
+    animation: 0.25s closeMiddleMenu linear forwards;
 }
-.yesCheck:checked ~ .menu .corner1, .yesCheck:checked ~ .menu .corner3, .noCheck:checked ~ .menu .corner1, .noCheck:checked ~ .menu .corner3{
-    animation: 0.15s closeCorner13 linear forwards;
+
+.yesCheck:checked ~ .menuWrapper .corner1, .noCheck:checked ~ .menuWrapper .corner1{
+    animation: 0.35s closeCorner1 linear forwards;
 }
-.yesCheck:checked ~ .menu .corner2, .yesCheck:checked ~ .menu .corner4, .noCheck:checked ~ .menu .corner2, .noCheck:checked ~ .menu .corner4{
-    animation: 0.15s closeCorner24 linear forwards;
+.yesCheck:checked ~ .menuWrapper .corner2, .noCheck:checked ~ .menuWrapper .corner2{
+    animation: 0.35s closeCorner2 linear forwards;
 }
-.yesCheck:checked ~ .menu, .noCheck:checked ~ .menu{
-    animation: 0.27s menuClose linear forwards;
+.yesCheck:checked ~ .menuWrapper .corner3, .noCheck:checked ~ .menuWrapper .corner3{
+    animation: 0.35s closeCorner3 linear forwards;
+}
+.yesCheck:checked ~ .menuWrapper .corner4, .noCheck:checked ~ .menuWrapper .corner4{
+    animation: 0.35s closeCorner4 linear forwards;
+}
+
+.yesCheck:checked ~ .menuWrapper, .noCheck:checked ~ .menuWrapper{
+    animation: 0.45s menuWrapperClose linear forwards;
+}
+.yesCheck:checked ~ .menuWrapper .menu, .noCheck:checked ~ .menuWrapper .menu{
+    animation: 0.45s menuClose 0.1s step-end forwards;
 }
 .yesCheck:checked ~ .overlay, .noCheck:checked ~ .overlay{
-    animation: 0.27s overlayClose linear forwards;
+    animation: 0.45s overlayClose linear forwards;
 }
 
 .gitStar{
@@ -538,8 +785,8 @@ label:focus{
     background-color: #202020;
     border-bottom: 3px solid #252525;
     border-radius: 3px;
-    z-index: 5;
-    transition: 0.2s all ease-in-out;
+    z-index: 1;
+    transition: 0.2s all ease-in-out !important;
 }
 .gitStar:hover{
     color: rgb(235, 213, 24, 1);
@@ -558,5 +805,5 @@ label:focus{
 }
 .gitStar svg path{
     stroke: white;
-    transition: 0.2s all ease-in-out;
+    transition: 0.2s all ease-in-out !important;
 }
